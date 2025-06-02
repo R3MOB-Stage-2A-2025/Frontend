@@ -1,0 +1,15 @@
+Version implémentée en 2023:
+
+- Architecture MVC (Modèle / Vue / Controlleur)
+-> Vue: Cote Client
+-> Controlleur: Express.js avec les envois de requetes
+-> Modèle: Contient les données manipulées par le programme
+
+-> Traitement des données exportées à partir de la base de connaissances The Brain
+-> Analyse des informations de cette base pour en extraire du contenu cohérent 
+-> Ce contenu est ensuite utilisé pour alimenter notre propre base de données sur le site.
+
+
+Ce qui n'a pas été implémenté : 
+-> la gestion des entités tels que les chercheurs , les partenaires et les stages
+-> forum de discussion entre les chercheurs sur des thématiques précises n'a pas été implémenté
