@@ -13,3 +13,15 @@ Version implémentée en 2023:
 Ce qui n'a pas été implémenté : 
 -> la gestion des entités tels que les chercheurs , les partenaires et les stages
 -> forum de discussion entre les chercheurs sur des thématiques précises n'a pas été implémenté
+
+
+Ce que je compte faire en premier lieu: 
+
+- faire un audit complet du site R3Mob en utilisant Screaming Frog 
+Points à vérifier :
+- Codes de réponse HTTP: identifier les erreurs 4XX (pages non trouvées), 5XX (erreurs serveurs), et redirections 3XX : Onglet Response Codes
+- Liens Cassés (Broken links): Repérer les liens internes et externes qui mènent à des erreurs : Onglet Internal et External
+- Titres de pages (Title tags) : Vérifier Unicité , mots-clés , ... : Onglet Page Titles
+- Poids des images : identifier les images trop lourdes qui ralentissent le site 
+- Attributs ALT des images 
+- Analyser les redirections en place (301, 302)
