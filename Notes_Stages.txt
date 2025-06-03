@@ -25,3 +25,26 @@ Points à vérifier :
 - Poids des images : identifier les images trop lourdes qui ralentissent le site 
 - Attributs ALT des images 
 - Analyser les redirections en place (301, 302)
+
+
+Version implémentée en 2024 : 
+
+Fichier principal de lancement de l'application: 
+-> index.js : le point d’entrée de l’application. Ce fichier importe le composant principal App (défini dans App.js) et l’affiche dans la page HTML, à l’intérieur de la balise <div id="root"> ,
+
+la fonction App initialise l'état global de l'authentification, vérifie si l'utilisateur est connecté 
+au démarrage , affiche un écran de chargement et organise la navigation entre les différentes pages du site grâce au système de routes
+
+-> reportWebVitals : mesurer et collecter des métriques de performances 
+getCLS : stabilité visuelle 
+getFID : réactivité
+getFCP : temps d'affichage du premier contenu
+getLCP : temps de chargement du contenu principal
+
+- Home.js : ce fichier s'occupe de la gestion de la page d'accueil du site R3Mob
+-> 5 Appels API parallèles pour optimiser les performances 
+-> Récupération des 3 éléments les plus récents pour chaque section 
+-> Pas de gestion d'erreur dans la partie appels api (Point d'amélioration)
+-> Patterns de développement : Rendu conditionnel (n'afficher que si des données existent) + gestion des fallbacks (éviter les erreurs d'affichage )
+-> Séparation claire : styles dans des fichiers dédiés 
+
