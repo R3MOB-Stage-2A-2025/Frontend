@@ -79,7 +79,7 @@
   - Fallbacks pour éviter les erreurs d’affichage  
 - Séparation claire : styles dans des fichiers dédiés
 
-## Authentification - `Login.js`
+## Authentification + Inscription - `Login.js`
 
 ### Fonctions principales :
 
@@ -88,12 +88,93 @@
 - `login` : Gère la connexion via `/auth/login` et stocke le token  
 - `handleKeyDown` : Valide le formulaire avec la touche Entrée 
 
+- Point Important à noter : handling du trouver votre adresse mail a l'aide d'une popup ou on tape des lettres et ca nous affiche des mails dans la base de données qui contiennent les lettres que l'on a tapées.
+
+
 Améliorations possibles pour cette partie: 
 
 - `Gestion d'erreurs améliorée` : Remplacer les alert par des messages d'erreur visuel
 - `Créer une fonction de validation globale` : pour les formulaires 
 
+
 ---
+
+ ## Accès à l'Agenda + Évènements - `Agenda.js et Event.js`
+
+ ### Fonctions principales : 
+ 1. La fonction `filteredEvents` applique plusieurs filtres successifs :
+
+- **Filtre par nom** : recherche insensible à la casse  
+- **Filtre par date** : comparaison exacte des dates formatées  
+- **Filtre par localisation** : présentiel, distanciel ou tous  
+- **Filtre par statut temporel** : événements passés, futurs ou en cours  
+- **Tri** : par date croissante ou décroissante
+
+2. Pagination
+
+Le système de pagination divise les événements en pages de 6 éléments :
+
+- `eventsPerPage = 6`
+- Calcul du nombre total de pages
+- Extraction des événements de la page courante avec `slice()`
+
+3. Gestionnaires d'événements
+
+Plusieurs fonctions gèrent les changements de filtres :
+
+- `handleEventNameFilterChange` : mise à jour du filtre nom
+- `handleDateFilterChange` : gestion du sélecteur de date
+- `handleEventLocationFilterChange` : changement de localisation
+- `handleResetFilters` : réinitialisation de tous les filtres
+
+Dans Event.js : 
+- getAllEvents() : Récupère tous les événements standards
+- getAllCustomEvents() : Récupère tous les événements personnalisés
+
+# Routes
+
+## `GET /combined`  
+Combine tous les événements (`Event` + `CustomEvent`) pour les utilisateurs authentifiés.
+
+## `GET /public`  
+Filtre uniquement les événements publics (`isPrivate === 'f'`)
+
+## `GET /3recent`  
+Retourne les 3 événements publics les plus récents
+
+## `GET /`  
+Tous les événements publics triés par date décroissante
+
+## `GET /all`  
+Tous les événements sans filtre de confidentialité
+
+
+---
+
+# Opérations
+
+## Création
+
+- `POST /` : Crée un nouvel événement standard  
+- `POST /custom` : Crée un événement personnalisé  
+
+## Lecture
+
+- `GET /custom` : Récupère tous les événements personnalisés  
+- `GET /lastCustom` : Retourne l'ID du dernier événement personnalisé créé  
+
+## Mise à jour
+
+- `PUT /:id` : Met à jour un événement standard  
+- `PUT /custom/:id` : Met à jour un événement personnalisé  
+- `PUT /changePrivacy/brain/:id` et `PUT /changePrivacy/custom/:id` : Modifient la confidentialité  
+
+## Suppression
+
+- `DELETE /custom/:id` : Supprime un événement personnalisé
+
+
+-> Erreur quand on veut choisir Evenements futurs , la requete ne se finit pas d'ou le handling des erreurs (recherche indéfinie) : fonctions de filtrage à revoir
 
 # Pistes d'amélioration
 
