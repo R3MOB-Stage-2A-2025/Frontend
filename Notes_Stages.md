@@ -1,5 +1,7 @@
 # Version implémentée en 2023
 
+R3Mob (Réseau régional de recherche sur les nouvelles mobilités) est un réseau de recherche pluridisciplinaire porté par Bordeaux INP et soutenu par la région Nouvelle-Aquitaine. Il vise à fédérer les forces académiques travaillant sur les thématiques de mobilité innovante.
+
 ## Architecture MVC (Modèle / Vue / Contrôleur)
 
 - **Vue** : Côté client  
@@ -190,3 +192,32 @@ Tous les événements sans filtre de confidentialité
 - **Documentation** :
   - Ajouter des instructions sur le lancement de la base de données avec **MySQL**
   - Utiliser **Docker** pour créer un conteneur avec un port spécifique pour développement ou test
+
+- **Langues** : 
+  - Proposer une version anglaise du site pour toucher un public plus large , comme le font R3IA et R3 Tesna (vu dans l'état de l'art de 2023) : Sélecteur de langue FR/EN (en haut de page)
+  - S'assurer que la traduction est de qualité et que tous les contenus sont disponibles dans les deux langues 
+
+- **SEO (Search Engine Optimization)** : 
+ - il s'agit ici d'essayer d'optimiser le référencement naturel du site en utilisant des mots-clés pertinents dans les titres, les descriptions et les contenus.
+
+ - Créer un sitemap pour faciliter l'indexation du site par les moteurs de recherche: deux types
+ de sitemap: XML(recommandé) ou HTML(plus difficile car il faut le construire manuellement)
+
+ -> Un sitemap XML est un fichier qui liste toutes les pages importantes d'un site web pour aider les moteurs de recherche (Google, Firefox, etc.) à les découvrir et les indexer plus efficacement. C'est comme un plan du site destiné aux robots d'indexation. 
+
+ Pour la liste des pages disponibles (ou routes) dans le site , on peut utiliser ce bout de code à copier dans la console de l'inspecteur :
+
+ ```javascript
+(function() {
+  const links = Array.from(document.querySelectorAll('a[href]'));
+  const internalLinks = links
+    .map(a => a.href)
+    .filter(href => href.includes(window.location.hostname))
+    .map(href => new URL(href).pathname)
+    .filter((path, index, arr) => arr.indexOf(path) === index)
+    .sort();
+  
+  console.log('Routes trouvées:');
+  internalLinks.forEach(path => console.log(path));
+})();
+``` 
