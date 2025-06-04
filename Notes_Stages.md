@@ -178,6 +178,77 @@ Tous les événements sans filtre de confidentialité
 
 -> Erreur quand on veut choisir Evenements futurs , la requete ne se finit pas d'ou le handling des erreurs (recherche indéfinie) : fonctions de filtrage à revoir
 
+## Projets - `Projet.js + Thematique.js + sous-Thematique.js`
+
+Le système de filtrage est sophistiqué avec plusieurs niveaux :
+
+- **Filtrage par titre de projet** (insensible à la casse)
+- **Filtrage par établissement** avec recherche partielle
+- **Filtrage par thématique et sous-thématique**
+- **Filtrage par état et enjeux**
+- **Pagination** avec 6 éléments par page
+
+Problèmes de performance côté frontend
+  - Trop de re-rendus potentiels à cause du nombre élevé d'états
+  - Filtrage côté client peut être lent avec de gros datasets
+  - Appels API multiples au chargement initial
+
+
+## Update des events - `UpdateEvent.js`  ⚠️ (A revoir)
+
+ - Ce composant React gère l'affichage et la modification d'événements dans une interface d'administration
+ - Il permet de visualiser, modifier, créer et supprimer des événements de deux types : les événements "brain" et les événements "custom"
+ - il y a la gestion de plusieurs fonctionnalités : (en étant connecté sur le site en mode Admin)  
+   -  Suppression d'évènements custom (handleDeleteEvent)
+   -  Modification d'évènements (handleSaveEventChanges)
+   -  Création d'évènements (handleCreateCustomEvent)
+   -  Gestion de la confidentialité des événements (handleTogglePrivacyBrain et handleTooglePrivacyCustom)
+
+   - interface Utilisateur : Le composant affiche un tableau avec les colonnes : Titre, Date, Lieu, Status, et Actions. Il utilise des boutons pour basculer entre les types d'événements et des icônes pour les actions de modification et suppression
+
+## Liste des acteurs de R3Mob : `Chercheur.js`
+- afficher, filtrer et paginer une liste de chercheurs (ou "acteurs R3MOB") selon différents critères.
+
+- La variable `filteredPersos` applique plusieurs filtres en chaîne sur la liste des chercheurs :
+
+ - **Filtre par nom** (recherche en texte).
+ - **Filtre par établissement** (en cherchant dans les établissements associés au chercheur).
+ - **Filtre par type de personnel** (tous, ou un type précis).
+ - **Filtre par type de comité** (tous, comité exécutif, comité de pilotage).
+ - **Filtre par thématique** (en vérifiant les thématiques associées au chercheur).
+ - **Filtre par sous-thématique** (en vérifiant les sous-thématiques associées).
+
+ - les chercheurs filtrés sont triés alphabétiquement selon le choix de l'utilisateur (décroissant ou croissant)
+ - 9 chercheurs par page
+
+ ## Liste des ressources du site : `Ressources.js`
+  # Pistes d'amélioration
+
+  1. **Optimisation des appels API**
+
+   - **Problème :** L’appel à `axios.get('http://localhost:3001/videos')` dépend du tableau `videos` dans le `useEffect`, ce qui provoque un rechargement infini dès que `setVideos` est appelé.  
+   - **Solution :** Utiliser un tableau de dépendances vide (`[]`) pour charger les vidéos une seule fois au montage.
+
+  2. **Gestion des filtres**
+
+  - **Problème :** Le filtrage des chercheurs dans les publications est peu robuste (découpe sur les espaces, recherche sur chaque partie du nom uniquement).  
+  - **Solution :** Améliorer la logique pour permettre la recherche sur le nom complet et ignorer la casse / espaces superflus.
+
+  3. **Performance du filtrage et du rendu**
+
+   - **Problème :** Tous les filtres sont recalculés à chaque rendu, même si les données n’ont pas changé.  
+   - **Solution :** Utiliser `useMemo` pour mémoïser le résultat du filtrage.
+
+  4. **Structure des `useEffect`**
+
+   - **Problème :** Certains `useEffect` ne sont pas optimisés et peuvent provoquer des appels multiples ou non nécessaires.  
+   - **Solution :** Regrouper les appels, éviter les dépendances inutiles et ne pas mélanger logique et effets de bord.
+
+  5. **Lisibilité et factorisation**
+
+   - **Problème :** Le code des filtres et des handlers est redondant.  
+   - **Solution :** Factoriser les handlers, commenter les parties complexes, et séparer la logique métier de la présentation.
+
 # Pistes d'amélioration
 
 - **Numéros de port** :
