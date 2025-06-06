@@ -219,3 +219,16 @@ npm audit --production  # cibler uniquement les dépendances de prod
 - Intercepteurs Axios pour la sécurisation des appels API
 
 ---
+
+
+
+## Grosse faille de sécurité  !!!! ⚠️
+
+- Mot de passe en clair de `rrr3mob@outlook.fr` dans le client (en 2023) et dans le serveur (en 2024) : a modifier le plus rapidement possible
+
+- codes d'authentification dans le code (très mauvaise idée) : il faut intéger ceci dans un serveur smtp pour l'envoi des mail pour les mots de passe temporaire 
+
+## Reset de password (non fonctionnel) : 
+- l'envoi de la requête échoue (à cause du systeme de mail)
+
+## Problème de 
